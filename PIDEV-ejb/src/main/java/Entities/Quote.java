@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Quote implements Serializable{
@@ -16,8 +17,19 @@ public class Quote implements Serializable{
 	@GeneratedValue( strategy= GenerationType.IDENTITY)
 	@Column(name="ID")
 	int id;
+	@ManyToOne
 	Basket basket;
 	float total;
+	
+	@ManyToOne
+	private Bill bill;
+	
+	public Bill getBill() {
+		return bill;
+	}
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
 	public int getId() {
 		return id;
 	}
