@@ -2,10 +2,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +23,8 @@ public class Pack implements Serializable {
 	int id;
 	String type;
 	float price;
-	@OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
-	private List<QuantityPerPack> quantityPerPacks;
+	@OneToMany(mappedBy = "pack", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<QuantityPerPack> quantityPerPacks;
 
 	public int getId() {
 		return id;
@@ -48,11 +50,11 @@ public class Pack implements Serializable {
 		this.price = price;
 	}
 
-	public List<QuantityPerPack> getQuantityPerPacks() {
+	public Set<QuantityPerPack> getQuantityPerPacks() {
 		return quantityPerPacks;
 	}
 
-	public void setQuantityPerPacks(List<QuantityPerPack> quantityPerPacks) {
+	public void setQuantityPerPacks(Set<QuantityPerPack> quantityPerPacks) {
 		this.quantityPerPacks = quantityPerPacks;
 	}
 }

@@ -3,10 +3,12 @@ package Entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,16 +22,24 @@ public class Publicity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	int id;
-	@OneToMany(mappedBy = "publicity", cascade = CascadeType.ALL)
-	private List<Product> product;
-	Date startDate, finishDate;
+	@OneToMany(mappedBy = "publicity", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Product> product;
+	String startDate, finishDate,image;
 
-	public List<Product> getProduct() {
+	public Set<Product> getProduct() {
 		return product;
 	}
 
-	public void setProduct(List<Product> product) {
+	public void setProduct(Set<Product> product) {
 		this.product = product;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public int getId() {
@@ -40,19 +50,19 @@ public class Publicity implements Serializable {
 		this.id = id;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getFinishDate() {
+	public String getFinishDate() {
 		return finishDate;
 	}
 
-	public void setFinishDate(Date finishDate) {
+	public void setFinishDate(String finishDate) {
 		this.finishDate = finishDate;
 	}
 }

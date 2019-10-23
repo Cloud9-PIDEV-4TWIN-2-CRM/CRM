@@ -3,10 +3,12 @@ package Entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,15 +25,15 @@ public class Operator implements Serializable {
 	@Column(name = "ID_Operator")
 	int id;
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "operator")
-	List<Agent> list = new ArrayList<Agent>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "operator",fetch=FetchType.EAGER)
+	Set<Agent> agents;
 
-	public List<Agent> getList() {
-		return list;
+	public Set<Agent> getList() {
+		return agents;
 	}
 
-	public void setList(List<Agent> list) {
-		this.list = list;
+	public void setList(Set<Agent> agents) {
+		this.agents = agents;
 	}
 
 	@Column(name = "Name")
@@ -42,8 +44,8 @@ public class Operator implements Serializable {
 	String adress;
 	@Column(name = "contact")
 	int contact;
-	@OneToMany(mappedBy = "operator", cascade = CascadeType.ALL)
-	private List<Customer> customers;
+	@OneToMany(mappedBy = "operator", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Prospect> prospects;
 
 	public int getId() {
 		return id;
@@ -85,12 +87,14 @@ public class Operator implements Serializable {
 		this.contact = contact;
 	}
 
-	public List<Customer> getCustomers() {
-		return customers;
+	public Set<Prospect> getProspects() {
+		return prospects;
 	}
 
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
+	public void setProspects(Set<Prospect> prospects) {
+		this.prospects = prospects;
 	}
+
+	
 
 }

@@ -14,6 +14,12 @@ public class ProductQuantity implements Serializable{
 
 	@EmbeddedId
 	ProductQuantityPk productQuantitypk;
+	public ProductQuantity(int qte, Basket basket, Product product) {
+		this.qte = qte;
+		this.basket = basket;
+		this.product = product;
+	}
+
 	int qte;
 	@ManyToOne
 	@JoinColumn(name="basket",referencedColumnName="id",updatable=false,insertable=false)

@@ -2,10 +2,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +22,8 @@ public class Shop implements Serializable {
 	int id;
 	String name, workingTime, location;
 	int phone;
-	@OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
-	private List<Stock> stocks;
+	@OneToMany(mappedBy = "shop", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Stock> stocks;
 
 	public int getId() {
 		return id;
@@ -31,11 +33,11 @@ public class Shop implements Serializable {
 		this.id = id;
 	}
 
-	public List<Stock> getStocks() {
+	public Set<Stock> getStocks() {
 		return stocks;
 	}
 
-	public void setStocks(List<Stock> stocks) {
+	public void setStocks(Set<Stock> stocks) {
 		this.stocks = stocks;
 	}
 

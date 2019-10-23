@@ -2,10 +2,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,40 +21,42 @@ public class Basket implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	int id;
-	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-	List<ProductQuantity> productQte;
+	
+	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	Set<ProductQuantity> productQte;
+	
 	@ManyToOne
 	private Prospect prospect;
 
-	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-	private List<Quote> quotes;
+	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Quote> quotes;
 
-	public List<ProductQuantity> getProductQte() {
+	public Set<ProductQuantity> getProductQte() {
 		return productQte;
 	}
 
-	public void setProductQte(List<ProductQuantity> productQte) {
+	public void setProductQte(Set<ProductQuantity> productQte) {
 		this.productQte = productQte;
 	}
 
-	public List<Quote> getQuotes() {
+	public Set<Quote> getQuotes() {
 		return quotes;
 	}
 
-	public void setQuotes(List<Quote> quotes) {
+	public void setQuotes(Set<Quote> quotes) {
 		this.quotes = quotes;
 	}
 
-	public List<Reservation> getReservations() {
+	public Set<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(List<Reservation> reservations) {
+	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 
-	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-	private List<Reservation> reservations;
+	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Reservation> reservations;
 
 	public int getId() {
 		return id;

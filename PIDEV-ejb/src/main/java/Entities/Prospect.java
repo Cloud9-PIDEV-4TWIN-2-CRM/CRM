@@ -2,10 +2,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,34 +33,70 @@ public class Prospect implements Serializable {
 	String password;
 	@Column(name = "phone")
 	int phone;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL)
-	private List<Customer> customers;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL)
-	private List<Claim> claimsprospects;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL)
-	private List<Basket> basketprospects;
+	private boolean customer;
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Claim> claimsprospects;
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Basket> basketprospects;
+	@ManyToOne
+    private Operator operator;
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Purchase> purchases;
+	private boolean isConfirmed;
+	
 
-	public List<Customer> getCustomers() {
-		return customers;
+	public boolean isConfirmed() {
+		return isConfirmed;
 	}
 
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
 	}
 
-	public List<Claim> getClaimsprospects() {
+
+	public Set<Purchase> getPurchases() {
+		return purchases;
+	}
+
+
+	public void setPurchases(Set<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+
+
+	public Operator getOperator() {
+		return operator;
+	}
+
+
+	public void setOperator(Operator operator) {
+		this.operator = operator;
+	}
+
+
+	public boolean isCustomer() {
+		return customer;
+	}
+	
+
+	public void setCustomer(boolean customer) {
+		this.customer = customer;
+	}
+
+	public Set<Claim> getClaimsprospects() {
 		return claimsprospects;
 	}
 
-	public void setClaimsprospects(List<Claim> claimsprospects) {
+	public void setClaimsprospects(Set<Claim> claimsprospects) {
 		this.claimsprospects = claimsprospects;
 	}
 
-	public List<Basket> getBasketprospects() {
+	public Set<Basket> getBasketprospects() {
 		return basketprospects;
 	}
 
-	public void setBasketprospects(List<Basket> basketprospects) {
+	public void setBasketprospects(Set<Basket> basketprospects) {
 		this.basketprospects = basketprospects;
 	}
 

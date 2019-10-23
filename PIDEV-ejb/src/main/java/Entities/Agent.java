@@ -2,10 +2,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +24,8 @@ public class Agent implements Serializable {
 	int id;
 	@ManyToOne
 	Operator operator;
-	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
-	private List<Claim> claims;
+	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Claim> claims;
 
 	public Operator getOperator() {
 		return operator;
@@ -38,8 +40,8 @@ public class Agent implements Serializable {
 	String email, password;
 	int phone;
 
-	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
-	private List<Product> products;
+	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Product> products;
 
 	public int getId() {
 		return id;
@@ -81,19 +83,19 @@ public class Agent implements Serializable {
 		this.phone = phone;
 	}
 
-	public List<Claim> getClaims() {
+	public Set<Claim> getClaims() {
 		return claims;
 	}
 
-	public void setClaims(List<Claim> claims) {
+	public void setClaims(Set<Claim> claims) {
 		this.claims = claims;
 	}
 
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 

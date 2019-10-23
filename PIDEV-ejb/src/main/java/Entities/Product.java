@@ -2,11 +2,13 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,20 +29,31 @@ public class Product implements Serializable {
 	@ManyToOne
 	Agent agent;
 	String description;
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	List<ProductQuantity> productQte;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	Set<ProductQuantity> productQte;
 	@ManyToOne
 	private Publicity publicity;
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private List<Offer> offers;
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private List<QuantityPerPack> quantityPerPacks;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Offer> offers;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<QuantityPerPack> quantityPerPacks;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	Set<Purchase> purchases;
+	
 
-	public List<ProductQuantity> getProductQte() {
+	public Set<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(Set<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+
+	public Set<ProductQuantity> getProductQte() {
 		return productQte;
 	}
 
-	public void setProductQte(List<ProductQuantity> productQte) {
+	public void setProductQte(Set<ProductQuantity> productQte) {
 		this.productQte = productQte;
 	}
 
@@ -52,19 +65,19 @@ public class Product implements Serializable {
 		this.publicity = publicity;
 	}
 
-	public List<Offer> getOffers() {
+	public Set<Offer> getOffers() {
 		return offers;
 	}
 
-	public void setOffers(List<Offer> offers) {
+	public void setOffers(Set<Offer> offers) {
 		this.offers = offers;
 	}
 
-	public List<QuantityPerPack> getQuantityPerPacks() {
+	public Set<QuantityPerPack> getQuantityPerPacks() {
 		return quantityPerPacks;
 	}
 
-	public void setQuantityPerPacks(List<QuantityPerPack> quantityPerPacks) {
+	public void setQuantityPerPacks(Set<QuantityPerPack> quantityPerPacks) {
 		this.quantityPerPacks = quantityPerPacks;
 	}
 
