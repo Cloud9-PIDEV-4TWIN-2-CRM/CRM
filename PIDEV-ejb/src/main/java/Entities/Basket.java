@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Basket")
 public class Basket implements Serializable {
 
 	@Id
@@ -38,6 +40,8 @@ public class Basket implements Serializable {
 	public void setProductQte(Set<ProductQuantity> productQte) {
 		this.productQte = productQte;
 	}
+
+	
 
 	public Set<Quote> getQuotes() {
 		return quotes;

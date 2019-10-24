@@ -9,6 +9,14 @@ public class ProductQuantityPk implements Serializable {
 
 	int basket;
 	int product;
+public ProductQuantityPk() {
+	
+}
+
+	public ProductQuantityPk(int basket, int product) {
+		this.basket = basket;
+		this.product = product;
+	}
 
 	public int getBasket() {
 		return basket;

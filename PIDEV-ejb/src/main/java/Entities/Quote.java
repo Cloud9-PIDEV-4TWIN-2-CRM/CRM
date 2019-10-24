@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 public class Quote implements Serializable{
 
 
+
 	@Id
 	@GeneratedValue( strategy= GenerationType.IDENTITY)
 	@Column(name="ID")

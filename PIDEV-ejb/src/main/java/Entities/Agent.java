@@ -22,6 +22,8 @@ public class Agent implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	int id;
+	
+
 	@ManyToOne
 	Operator operator;
 	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL,fetch=FetchType.EAGER)

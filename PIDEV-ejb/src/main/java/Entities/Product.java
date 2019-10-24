@@ -22,6 +22,21 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	int id;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	Set<StockProduct> productStock;
+
+	
+
+	public Set<StockProduct> getProductStock() {
+		return productStock;
+	}
+
+	public void setProductStock(Set<StockProduct> productStock) {
+		this.productStock = productStock;
+	}
+
+	
+
 	String name;
 	float price;
 	@ManyToOne
@@ -81,16 +96,7 @@ public class Product implements Serializable {
 		this.quantityPerPacks = quantityPerPacks;
 	}
 
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
-
-	@ManyToOne
-	private Stock stock;
+	
 
 	public int getId() {
 		return id;

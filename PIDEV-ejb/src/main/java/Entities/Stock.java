@@ -17,14 +17,22 @@ import javax.persistence.OneToMany;
 @Entity
 public class Stock implements Serializable{
 
+	
 	@Id
 	@GeneratedValue( strategy= GenerationType.IDENTITY)
 	@Column(name="ID")
 	int id;
+	@OneToMany(mappedBy = "stock", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	Set<StockProduct> productStock;
 	@ManyToOne
 	Shop shop;
-	@OneToMany(mappedBy="stock",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private Set<Product> products;
+	
+	public Set<StockProduct> getProductStock() {
+		return productStock;
+	}
+	public void setProductStock(Set<StockProduct> productStock) {
+		this.productStock = productStock;
+	}
 	int qte;
 	public int getId() {
 		return id;
@@ -38,12 +46,7 @@ public class Stock implements Serializable{
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
-	public Set<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
+	
 	public int getQte() {
 		return qte;
 	}

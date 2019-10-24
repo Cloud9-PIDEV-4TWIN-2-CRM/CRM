@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Shop implements Serializable {
 
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

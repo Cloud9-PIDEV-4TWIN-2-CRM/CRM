@@ -22,6 +22,7 @@ public class Category implements Serializable {
 	@Column(name = "ID")
 	int id;
 
+	
 	public int getId() {
 		return id;
 	}

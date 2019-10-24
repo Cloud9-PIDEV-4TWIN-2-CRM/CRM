@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Offer implements Serializable {
 
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

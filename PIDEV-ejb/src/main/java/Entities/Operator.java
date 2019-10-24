@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "Operator")
 public class Operator implements Serializable {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_Operator")

@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class QuantityPerPack implements Serializable {
 
+
 	@EmbeddedId
 	QuantityPerPackPk quantityperpackpk;
 	@ManyToOne

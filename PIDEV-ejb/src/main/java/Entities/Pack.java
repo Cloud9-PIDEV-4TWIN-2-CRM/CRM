@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Pack implements Serializable {
 
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

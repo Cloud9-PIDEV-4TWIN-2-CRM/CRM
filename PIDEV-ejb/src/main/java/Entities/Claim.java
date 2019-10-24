@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Claim implements Serializable {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

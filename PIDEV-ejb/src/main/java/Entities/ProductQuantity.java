@@ -4,13 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 
 @Entity
+@Table(name = "ProductQuantity",
+uniqueConstraints=@UniqueConstraint(columnNames={"basket", "product"}))
 public class ProductQuantity implements Serializable{
+
+	
+	
 
 	@EmbeddedId
 	ProductQuantityPk productQuantitypk;
@@ -19,13 +27,16 @@ public class ProductQuantity implements Serializable{
 		this.basket = basket;
 		this.product = product;
 	}
+	public ProductQuantity() {
+		
+	}
 
 	int qte;
-	@ManyToOne
-	@JoinColumn(name="basket",referencedColumnName="id",updatable=false,insertable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="basket",referencedColumnName="id",updatable=false,insertable=false,nullable=false)
 	Basket basket;
-	@ManyToOne
-	@JoinColumn(name="product",referencedColumnName="id",updatable=false,insertable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="product",referencedColumnName="id",updatable=false,insertable=false,nullable=false)
 	Product product;
 	public ProductQuantityPk getProductQuantitypk() {
 		return productQuantitypk;
