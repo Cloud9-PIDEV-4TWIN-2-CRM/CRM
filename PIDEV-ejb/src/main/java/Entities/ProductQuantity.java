@@ -18,7 +18,6 @@ uniqueConstraints=@UniqueConstraint(columnNames={"basket", "product"}))
 public class ProductQuantity implements Serializable{
 
 	
-	
 
 	@EmbeddedId
 	ProductQuantityPk productQuantitypk;

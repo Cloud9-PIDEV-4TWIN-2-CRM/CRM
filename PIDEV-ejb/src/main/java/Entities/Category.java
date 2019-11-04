@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 
@@ -47,10 +48,26 @@ public class Category implements Serializable {
 		this.type = type;
 	}
 
+	
 	public Set<Product> getProducts() {
 		return products;
 	}
+	public Category() {
+		
+	}
 
+	public Category(String name, String type, Set<Product> products) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.products = products;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", type=" + type  + "]";
+	}
+	@XmlTransient
 	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}

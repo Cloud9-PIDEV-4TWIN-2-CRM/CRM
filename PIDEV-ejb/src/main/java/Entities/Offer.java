@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Offer implements Serializable {
@@ -21,8 +22,27 @@ public class Offer implements Serializable {
 	int id;
 	@ManyToOne
 	Product product;
-	Date startDate, finishDate;
+	String startDate, finishDate;
 	float reduction;
+	
+	public boolean etat;
+
+	public boolean isEtat() {
+		return etat;
+	}
+
+	public void setEtat(boolean etat) {
+		this.etat = etat;
+	}
+
+	public Offer(Product product, String startDate, String finishDate, float reduction, boolean etat) {
+		super();
+		this.product = product;
+		this.startDate = startDate;
+		this.finishDate = finishDate;
+		this.reduction = reduction;
+		this.etat = etat;
+	}
 
 	public int getId() {
 		return id;
@@ -31,7 +51,7 @@ public class Offer implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public Product getProduct() {
 		return product;
 	}
@@ -40,19 +60,23 @@ public class Offer implements Serializable {
 		this.product = product;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getFinishDate() {
+	public Offer() {
+		super();
+	}
+
+	public String getFinishDate() {
 		return finishDate;
 	}
 
-	public void setFinishDate(Date finishDate) {
+	public void setFinishDate(String finishDate) {
 		this.finishDate = finishDate;
 	}
 

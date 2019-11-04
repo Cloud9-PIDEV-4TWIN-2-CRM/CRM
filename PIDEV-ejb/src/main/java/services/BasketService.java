@@ -41,7 +41,7 @@ public class BasketService implements BasketServiceRemote, BasketServiceLocal {
 		basket = em.createQuery("select u from Basket u where u.prospect=" + idProspect, Basket.class)
 				.getSingleResult();
 		product = em.createQuery("select u from Product u where u.id=" + idProduct, Product.class).getSingleResult();
-		System.out.println("hahaha" + basket.getId());
+
 		try {
 
 			prodQte = em.createQuery(
@@ -53,7 +53,6 @@ public class BasketService implements BasketServiceRemote, BasketServiceLocal {
 		}
 
 		if (prodQte == null) {// new insert into table productquantity
-			System.out.println("hahahha" + basket.getId() + " nananna" + product.getId());
 			ProductQuantity pq = new ProductQuantity();
 			ProductQuantityPk pqpk = new ProductQuantityPk(basket.getId(), product.getId());
 			pq.setProductQuantitypk(pqpk);

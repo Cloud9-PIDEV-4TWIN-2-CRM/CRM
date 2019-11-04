@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import Entities.Basket;
@@ -36,6 +37,7 @@ public class ReservationService implements ReservationServiceRemote, Reservation
 	@Override
 	public void bookingBasket(int idProspect) {
 		ProductQuantity prodQte =null;
+		Reservation res = null;
 		Basket basket=	em.createQuery("select u from Basket u where u.prospect="+idProspect,Basket.class).getSingleResult();
 		try {
 
@@ -46,10 +48,19 @@ public class ReservationService implements ReservationServiceRemote, Reservation
 		} catch (javax.persistence.PersistenceException k) {
 			// Ignore this because as per your logic this is ok!
 		}
+		try{
+			 res=(Reservation) em.createQuery("select u from Reservation u where u.status='In progress' u.basket="+basket.getId()).getSingleResult();
+		}
+		catch(NoResultException e) {
+			
+		}
+		
 		if(prodQte==null) {
 			System.out.println("basket empty, nothing to book");
 		}
-		else {
+		
+		
+		else if (res==null){
 			Reservation reservation = new Reservation();
 			reservation.setBasket(basket);
 			reservation.setStatus("In progress");
@@ -60,6 +71,14 @@ public class ReservationService implements ReservationServiceRemote, Reservation
 		    Date finishDate = c.getTime();
 			reservation.setFinishDate(finishDate);
 			em.persist(reservation);
+			List<ProductQuantity> listProductQte = em.createQuery("select u from ProductQuantity u where u.basket="+basket.getId()).getResultList();
+			
+			for(int i=0;i<listProductQte.size();i++) {
+				int oldQte=(int) em.createQuery("select u.qte from StockProduct u where u.product="+listProductQte.get(i).getProduct().getId()).getSingleResult();
+				int newQte=oldQte-listProductQte.get(i).getQte();
+				em.createQuery("update StockProduct u set u.qte=" + newQte + " where u.product="
+						+ listProductQte.get(i).getProduct().getId()).executeUpdate();
+			}
 		}
 		
 		
@@ -67,8 +86,8 @@ public class ReservationService implements ReservationServiceRemote, Reservation
 
 	@Override
 	public void cancelReservation(int idReservation) {
-		em.createQuery("delete from Reservation u where u.id=" + idReservation).executeUpdate();
-		
+		em.createQuery("update Reservation u set u.status='Canceled' where u.id=" + idReservation).executeUpdate();
+		//il reste à rajouter les produuits au stock 
 	}
 
 	@Override

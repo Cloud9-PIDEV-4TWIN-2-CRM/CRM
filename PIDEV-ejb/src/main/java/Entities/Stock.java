@@ -33,7 +33,6 @@ public class Stock implements Serializable{
 	public void setProductStock(Set<StockProduct> productStock) {
 		this.productStock = productStock;
 	}
-	int qte;
 	public int getId() {
 		return id;
 	}
@@ -47,11 +46,5 @@ public class Stock implements Serializable{
 		this.shop = shop;
 	}
 	
-	public int getQte() {
-		return qte;
-	}
-	public void setQte(int qte) {
-		this.qte = qte;
-	}
 	
 }
