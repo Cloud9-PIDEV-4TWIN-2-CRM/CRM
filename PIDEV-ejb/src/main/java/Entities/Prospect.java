@@ -1,6 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -18,68 +19,99 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Prospect")
 public class Prospect implements Serializable {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	int id;
-
+	private int id;
 	@Column(name = "firstName")
-	String firstName;
+	private String firstName;
 	@Column(name = "lastName")
-	String lastName;
+	private String lastName;
 	@Column(name = "email")
-	String email;
+	private String email;
 	@Column(name = "password")
-	String password;
+	private String password;
+	@Column(name = "registerDate")
+	private Date registerDate;
 	@Column(name = "phone")
-	int phone;
+	private int phone;
+	@Column(name = "customer")
 	private boolean customer;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@Column(name = "disabled")
+	private boolean disabled;
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Claim> claimsprospects;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Basket> basketprospects;
 	@ManyToOne
-    private Operator operator;
-	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private Operator operator;
+	@OneToMany(mappedBy = "prospect", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Purchase> purchases;
 	private boolean isConfirmed;
+
+	public Prospect() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Prospect(String firstName, String lastName, String email, String password, int phone, boolean customer,
+			Operator operator, boolean isConfirmed,boolean disabled) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
+		this.customer = customer;
+		this.operator = operator;
+		this.isConfirmed = isConfirmed;
+		this.disabled = disabled;
+	}
 	
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
 
 	public boolean isConfirmed() {
 		return isConfirmed;
 	}
 
-
 	public void setConfirmed(boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
 	}
-
 
 	public Set<Purchase> getPurchases() {
 		return purchases;
 	}
 
-
 	public void setPurchases(Set<Purchase> purchases) {
 		this.purchases = purchases;
 	}
-
 
 	public Operator getOperator() {
 		return operator;
 	}
 
-
 	public void setOperator(Operator operator) {
 		this.operator = operator;
 	}
 
-
 	public boolean isCustomer() {
 		return customer;
 	}
-	
 
 	public void setCustomer(boolean customer) {
 		this.customer = customer;

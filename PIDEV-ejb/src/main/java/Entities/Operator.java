@@ -91,7 +91,8 @@ public class Operator implements Serializable {
 	public Set<Prospect> getProspects() {
 		return prospects;
 	}
-
+    
+	@XmlTransient
 	public void setProspects(Set<Prospect> prospects) {
 		this.prospects = prospects;
 	}
