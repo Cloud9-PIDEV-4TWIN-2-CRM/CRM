@@ -1,7 +1,13 @@
 package rest.offer;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -125,7 +131,7 @@ public class OfferService {
 	
 	
 	 @GET
-	 @Path("PubActive")
+	 @Path("alloffers")
 	 @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	 public Response getAllOffers(){
 		 
@@ -210,7 +216,42 @@ public class OfferService {
 	 
 	 
 	 
-	 
+	 @DELETE
+	 @Consumes
+	 @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	 public Response deleteOffer(@QueryParam("id") int id ){
+		 
+			Offer e= OfferService.findOfferById(id);
+			if (e.isEtat()==true) {
+			/*
+				OfferService.DesactivateOffer(id);
+				Product b= OfferService.findProduitByid(e.getProduct().getId());
+				Set<Offer> l= new HashSet<Offer>();
+				l.remove(e);
+				b.setOffers(l);
+			    OfferService.updateProduct(b);
+			   */
+				OfferService.DesactivateOffer(id);
+				e.setProduct(null);
+				OfferService.updateOffer(e);
+				//OfferService.deleteOffer(e.getId());
+				OfferService.deleteOffer(id);
+
+				
+				
+			}
+			else {
+				e.setProduct(null);
+				OfferService.updateOffer(e);
+				OfferService.deleteOffer(id);
+
+			}
+		 
+		 return Response.ok("deleted Successfully", javax.ws.rs.core.MediaType.APPLICATION_JSON)
+					.header("Access-Control-Allow-Origin", "*").build();
+		 
+		 
+	 }
 	 
 	 
 	 

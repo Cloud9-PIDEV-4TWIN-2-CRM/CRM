@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class QuantityPerPack implements Serializable {
@@ -18,14 +19,24 @@ public class QuantityPerPack implements Serializable {
 	@JoinColumn(name = "product", referencedColumnName = "id", updatable = false, insertable = false)
 	private Product product;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "pack", referencedColumnName = "id", updatable = false, insertable = false)
 	private Pack pack;
+	
+
+	@Override
+	public String toString() {
+		return "QuantityPerPack [product=" + product.getName()+", Price="+product.getPrice() + ", qte=" + qte + "]";
+	}
+
 	int qte;
 
 	public Product getProduct() {
 		return product;
 	}
+public QuantityPerPack() {
+	
+}
 
 	public void setProduct(Product product) {
 		this.product = product;
@@ -34,7 +45,7 @@ public class QuantityPerPack implements Serializable {
 	public Pack getPack() {
 		return pack;
 	}
-
+	@XmlTransient
 	public void setPack(Pack pack) {
 		this.pack = pack;
 	}
@@ -54,5 +65,7 @@ public class QuantityPerPack implements Serializable {
 	public void setQte(int qte) {
 		this.qte = qte;
 	}
+	
+	
 
 }

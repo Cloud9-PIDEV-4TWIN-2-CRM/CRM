@@ -321,6 +321,14 @@ this.updateOffer(e);
 		return clientsuggest;
 	}
 
+	public EntityManager getEm() {
+		return em;
+	}
+
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+
 	@Override
 	public List<Purchase> getallpurchases() {
 		// TODO Auto-generated method stub
