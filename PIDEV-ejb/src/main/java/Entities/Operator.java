@@ -19,7 +19,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Operator")
 public class Operator implements Serializable {
+	
 
+
+	public Operator() {
+		super();
+	}
+
+	public Operator(int contact) {
+		super();
+		this.contact = contact;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

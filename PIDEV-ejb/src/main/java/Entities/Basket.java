@@ -14,10 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="Basket")
 public class Basket implements Serializable {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +29,12 @@ public class Basket implements Serializable {
 	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	Set<ProductQuantity> productQte;
 	
+	
+
 	@ManyToOne
 	private Prospect prospect;
 
-	@OneToMany(mappedBy = "basket", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	private Set<Quote> quotes;
-
+	
 	public Set<ProductQuantity> getProductQte() {
 		return productQte;
 	}
@@ -43,13 +45,7 @@ public class Basket implements Serializable {
 
 	
 
-	public Set<Quote> getQuotes() {
-		return quotes;
-	}
-
-	public void setQuotes(Set<Quote> quotes) {
-		this.quotes = quotes;
-	}
+	
 
 	public Set<Reservation> getReservations() {
 		return reservations;

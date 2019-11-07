@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Reservation implements Serializable {
@@ -23,6 +24,11 @@ public class Reservation implements Serializable {
 	String status;
 	@ManyToOne
 	private Basket basket;
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", finishDate=" + finishDate + ", status=" + status + ", basket=" + basket
+				+ "]";
+	}
 	public int getId() {
 		return id;
 	}
@@ -32,6 +38,7 @@ public class Reservation implements Serializable {
 	public Basket getBasket() {
 		return basket;
 	}
+	@XmlTransient
 	public void setBasket(Basket basket) {
 		this.basket = basket;
 	}

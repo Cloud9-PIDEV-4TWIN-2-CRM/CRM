@@ -1,53 +1,44 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+public class Quote implements Serializable {
 
-@Entity
-public class Quote implements Serializable{
-
-
-
-	@Id
-	@GeneratedValue( strategy= GenerationType.IDENTITY)
-	@Column(name="ID")
-	int id;
-	@ManyToOne
-	Basket basket;
-	float total;
+	private List<String> nameProduct;
+	private List<Float> prixProduct;
+	private List<Integer> quantityProduct;
+	private List<Float> reductionProduct;
 	
-	@ManyToOne
-	private Bill bill;
+	@Override
+	public String toString() {
+		return "Quote [nameProduct=" + nameProduct + ", prixProduct=" + prixProduct + ", quantityProduct="
+				+ quantityProduct + ", reductionProduct=" + reductionProduct + "]";
+	}
+	public List<String> getNameProduct() {
+		return nameProduct;
+	}
+	public void setNameProduct(List<String> nameProduct) {
+		this.nameProduct = nameProduct;
+	}
+	public List<Float> getPrixProduct() {
+		return prixProduct;
+	}
+	public void setPrixProduct(List<Float> prixProduct) {
+		this.prixProduct = prixProduct;
+	}
+	public List<Integer> getQuantityProduct() {
+		return quantityProduct;
+	}
+	public void setQuantityProduct(List<Integer> quantityProduct) {
+		this.quantityProduct = quantityProduct;
+	}
+	public List<Float> getReductionProduct() {
+		return reductionProduct;
+	}
+	public void setReductionProduct(List<Float> reductionProduct) {
+		this.reductionProduct = reductionProduct;
+	}
 	
-	public Bill getBill() {
-		return bill;
-	}
-	public void setBill(Bill bill) {
-		this.bill = bill;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public Basket getBasket() {
-		return basket;
-	}
-	public void setBasket(Basket basket) {
-		this.basket = basket;
-	}
-	public float getTotal() {
-		return total;
-	}
-	public void setTotal(float total) {
-		this.total = total;
-	}
 	
 }

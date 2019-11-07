@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 
@@ -19,6 +20,12 @@ public class ProductQuantity implements Serializable{
 
 	
 	
+
+	@Override
+	public String toString() {
+		return "ProductQuantity [productQuantitypk=" + productQuantitypk + ", qte=" + qte + ", basket=" + basket
+				+ ", product=" + product + "]";
+	}
 
 	@EmbeddedId
 	ProductQuantityPk productQuantitypk;
@@ -54,7 +61,7 @@ public class ProductQuantity implements Serializable{
 	public Basket getBasket() {
 		return basket;
 	}
-
+	@XmlTransient
 	public void setBasket(Basket basket) {
 		this.basket = basket;
 	}
@@ -62,7 +69,7 @@ public class ProductQuantity implements Serializable{
 	public Product getProduct() {
 		return product;
 	}
-
+	@XmlTransient
 	public void setProduct(Product product) {
 		this.product = product;
 	}

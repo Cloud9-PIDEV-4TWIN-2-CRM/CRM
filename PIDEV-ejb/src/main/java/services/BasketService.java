@@ -8,9 +8,11 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import Entities.Basket;
+import Entities.Operator;
 import Entities.Product;
 import Entities.ProductQuantity;
 import Entities.ProductQuantityPk;
@@ -19,29 +21,34 @@ import Entities.Reservation;
 import interfaces.BasketServiceLocal;
 import interfaces.BasketServiceRemote;
 
+
 /**
  * Session Bean implementation class BasketService
  */
 @Stateless
-@LocalBean
-public class BasketService implements BasketServiceRemote, BasketServiceLocal {
+public class BasketService implements  BasketServiceRemote,BasketServiceLocal {
 
-	@PersistenceContext
+	@PersistenceContext(unitName="CRM")
 	EntityManager em;
+	
+	//= Persistence.createEntityManagerFactory("crm").createEntityManager()
 
 	public BasketService() {
 
 	}
+	
 
 	@Override
 	public void addProductToBasket(int idProspect, int idProduct) {
 		ProductQuantity prodQte = null;
 		Basket basket = null;
 		Product product = null;
+		
 		basket = em.createQuery("select u from Basket u where u.prospect=" + idProspect, Basket.class)
 				.getSingleResult();
+	
 		product = em.createQuery("select u from Product u where u.id=" + idProduct, Product.class).getSingleResult();
-		System.out.println("hahaha" + basket.getId());
+
 		try {
 
 			prodQte = em.createQuery(
@@ -53,7 +60,6 @@ public class BasketService implements BasketServiceRemote, BasketServiceLocal {
 		}
 
 		if (prodQte == null) {// new insert into table productquantity
-			System.out.println("hahahha" + basket.getId() + " nananna" + product.getId());
 			ProductQuantity pq = new ProductQuantity();
 			ProductQuantityPk pqpk = new ProductQuantityPk(basket.getId(), product.getId());
 			pq.setProductQuantitypk(pqpk);
@@ -101,5 +107,7 @@ public class BasketService implements BasketServiceRemote, BasketServiceLocal {
 	List<ProductQuantity> list = em.createQuery("select u from ProductQuantity u where u.basket="+basket.getId()).getResultList();
 	return list;
 	}
+
+	
 
 }

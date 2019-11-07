@@ -23,16 +23,6 @@ public class Bill implements Serializable {
 	int id;
 	float tva;
 
-	public Set<Quote> getQuotes() {
-		return quotes;
-	}
-
-	public void setQuotes(Set<Quote> quotes) {
-		this.quotes = quotes;
-	}
-
-	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	private Set<Quote> quotes;
 
 	public int getId() {
 		return id;
